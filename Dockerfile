@@ -10,4 +10,4 @@ COPY . .
 EXPOSE 8081
 
 # Start ADK agent server in background, then start the voice UI
-CMD ["sh", "-c", "adk web coach --port 9000 --host 127.0.0.1 & sleep 6 && python voice_ui.py"]
+CMD ["sh", "-c", "adk web coach --port 9000 & sleep 8 && python voice_ui.py"]
