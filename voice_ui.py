@@ -21,7 +21,7 @@ from pypdf import PdfReader
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
-ADK_BASE      = "http://127.0.0.1:8080"
+ADK_BASE      = "http://127.0.0.1:9000"
 APP_NAME      = "coach"
 TTS_MODEL     = "gemini-3.1-flash-tts-preview"
 TTS_VOICE     = "Kore"
