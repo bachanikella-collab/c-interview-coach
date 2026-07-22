@@ -1,0 +1,30 @@
+# Environment variables
+.env
+.env.*
+
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Database files
+*.db
+*.sqlite
+
+# Logs
+*.log
+*_err.txt
+
+# Build artifacts
+dist/
+build/
+
+# Node
+**/node_modules/
+
+# Claude Code
+.claude/settings.local.json
