@@ -185,7 +185,7 @@ HTML = """<!DOCTYPE html>
 <body>
 <header>
   \U0001f399️ Interview Coach
-  <button id="audio-toggle" class="on" title="Toggle voice replies">\U0001f50a Voice ON</button>
+  <button id="audio-toggle" title="Toggle voice replies">\U0001f507 Voice OFF</button>
 </header>
 <div id="messages"></div>
 <div id="status"></div>
@@ -209,7 +209,7 @@ HTML = """<!DOCTYPE html>
   let userId      = 'user_' + Math.random().toString(36).slice(2, 9);
   let sessionId   = null;
   let isListening = false;
-  let voiceOn         = true;
+  let voiceOn         = false;
   let currentUtterance = null;
 
   // preload voice list (async in Chrome)
