@@ -293,14 +293,15 @@ HTML = """<!DOCTYPE html>
   }
 
   function extractReply(events) {
-    for (let i = (events || []).length - 1; i >= 0; i--) {
-      const parts = events[i]?.content?.parts;
-      if (parts) {
-        const txt = parts.map(p => p.text || '').join('').trim();
-        if (txt) return txt;
-      }
+    // Collect text from all model events and return the last non-empty one
+    const replies = [];
+    for (const ev of (events || [])) {
+      const parts = ev?.content?.parts;
+      if (!parts) continue;
+      const txt = parts.map(p => p.text || '').join('').trim();
+      if (txt) replies.push(txt);
     }
-    return null;
+    return replies.length ? replies[replies.length - 1] : null;
   }
 
   // ── PDF Resume Upload ───────────────────────────────────────────
@@ -461,7 +462,15 @@ async def chat(request: Request):
         },
     }
     r = await _http.post(f"{ADK_BASE}/run", json=payload, timeout=60)
-    return JSONResponse(r.json())
+    data = r.json()
+    print(f"[ADK] events returned: {len(data) if isinstance(data, list) else data}")
+    for i, ev in enumerate(data if isinstance(data, list) else []):
+        content = ev.get("content", {})
+        parts = content.get("parts", [])
+        texts = [p.get("text", "") for p in parts if p.get("text")]
+        if texts:
+            print(f"[ADK] event[{i}] author={ev.get('author')} text={texts[0][:80]}")
+    return JSONResponse(data)
 
 
 @app.post("/api/upload-resume")
