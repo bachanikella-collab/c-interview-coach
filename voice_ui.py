@@ -251,6 +251,17 @@ HTML = """<!DOCTYPE html>
       });
       const data = await r.json();
       sessionId = data.id;
+      setStatus('Agent is thinking…');
+
+      // Trigger the agent greeting silently on load
+      const gr = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ userId, sessionId, text: 'Hello' })
+      });
+      const events = await gr.json();
+      const greeting = extractReply(events);
+      if (greeting) addBubble(greeting, 'agent');
       setStatus('');
     } catch(e) {
       setStatus('⚠️ Could not connect to agent. Is ADK running on port 8080?');
