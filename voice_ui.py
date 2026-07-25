@@ -243,7 +243,7 @@ HTML = """<!DOCTYPE html>
   // ── Session init ────────────────────────────────────────────
   async function initSession() {
     // Show greeting immediately so the screen is never blank
-    const GREETING = "Hello! I'm here to help you ace your next interview. I'll be guiding you through a structured, multi-part mock interview session tailored to your background and your target role.\n\nTo get started, please tell me a little bit about yourself — or you can upload your PDF resume using the 📎 button.";
+    const GREETING = "Hello! I'm here to help you ace your next interview. I'll be guiding you through a structured, multi-part mock interview session tailored to your background and your target role.\\n\\nTo get started, please tell me a little bit about yourself — or you can upload your PDF resume using the 📎 button.";
     addBubble(GREETING, 'agent');
     setStatus('Connecting…');
     try {
