@@ -242,6 +242,9 @@ HTML = """<!DOCTYPE html>
 
   // ── Session init ────────────────────────────────────────────
   async function initSession() {
+    // Show greeting immediately so the screen is never blank
+    const GREETING = "Hello! I'm here to help you ace your next interview. I'll be guiding you through a structured, multi-part mock interview session tailored to your background and your target role.\n\nTo get started, please tell me a little bit about yourself — or you can upload your PDF resume using the 📎 button.";
+    addBubble(GREETING, 'agent');
     setStatus('Connecting…');
     try {
       const r = await fetch('/api/session', {
@@ -251,17 +254,6 @@ HTML = """<!DOCTYPE html>
       });
       const data = await r.json();
       sessionId = data.id;
-      setStatus('Agent is thinking…');
-
-      // Trigger the agent greeting silently on load
-      const gr = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ userId, sessionId, text: 'Hello' })
-      });
-      const events = await gr.json();
-      const greeting = extractReply(events);
-      if (greeting) addBubble(greeting, 'agent');
       setStatus('');
     } catch(e) {
       setStatus('⚠️ Could not connect to agent. Is ADK running on port 8080?');
